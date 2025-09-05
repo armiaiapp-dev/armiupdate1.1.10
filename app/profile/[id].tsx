@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView, Image, Linking, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import { ArrowLeft, CreditCard as Edit, User, Calendar, MapPin, Heart, Briefcase, Phone, Mail, Tag } from 'lucide-react-native';
@@ -89,6 +89,22 @@ export default function ProfileDetail() {
 
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
+  const handlePhonePress = async (phoneNumber: string) => {
+    try {
+      const phoneUrl = `tel:${phoneNumber}`;
+      const supported = await Linking.canOpenURL(phoneUrl);
+      
+      if (supported) {
+        await Linking.openURL(phoneUrl);
+      } else {
+        Alert.alert('Error', 'Phone calls are not supported on this device');
+      }
+    } catch (error) {
+      console.error('Error opening phone dialer:', error);
+      Alert.alert('Error', 'Failed to open phone dialer');
+    }
   };
 
   if (loading) {
@@ -181,10 +197,10 @@ export default function ProfileDetail() {
             )}
             
             {profile.phone && (
-              <View style={styles.infoItem}>
+              <TouchableOpacity style={styles.infoItem} onPress={() => handlePhonePress(profile.phone)}>
                 <Phone size={20} color={theme.primary} style={styles.infoIcon} />
                 <Text style={[styles.infoText, { color: theme.text }]}>{profile.phone}</Text>
-              </View>
+              </TouchableOpacity>
             )}
             
             {profile.email && (
