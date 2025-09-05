@@ -840,7 +840,7 @@ const styles = StyleSheet.create({
   },
   previewContent: {
     flexGrow: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 10,
     paddingBottom: 10,
