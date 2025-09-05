@@ -42,7 +42,7 @@ export function TemplateBlurredPeek({ profiles, privacySettings, theme, aspectRa
           <Zap size={24} color={theme.text} />
           <Text style={[styles.logoText, { color: theme.text }]}>ARMi</Text>
         </View>
-        <Text style={[styles.title, { color: theme.text }]}>My Network</Text>
+        <Text style={[styles.title, { color: theme.text }]}>My People</Text>
         <Text style={[styles.subtitle, { color: theme.primary }]}>
           {processedProfiles.length} connections
         </Text>
